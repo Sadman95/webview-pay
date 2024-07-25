@@ -19,9 +19,10 @@ interface IProps {
 	isOpen: boolean;
 	toggleAuth: boolean;
 	onClose: () => void;
+	onOpen: () => void;
 }
 
-const Auth: FC<IProps> = ({ isOpen, onClose, toggleAuth }) => {
+const Auth: FC<IProps> = ({ isOpen, onClose, onOpen, toggleAuth }) => {
 	const user: IUser | null = useAppSelector(
 		(state: RootState) => state.auth.user
 	);
@@ -42,7 +43,7 @@ const Auth: FC<IProps> = ({ isOpen, onClose, toggleAuth }) => {
 		<Modal onClose={onClose} size="full" isOpen={isOpen}>
 			<ModalOverlay />
 			<ModalContent>
-				<ModalCloseButton onClick={handleOnClose} cursor={"pointer"} />
+				{/* <ModalCloseButton onClick={handleOnClose} cursor={"pointer"} /> */}
 				<ModalBody className="flex flex-col justify-between w-full mt-16 align-middle md:flex-row">
 					{toggleAuth ? (
 						<LoginForm classNames={`w-full`} />
