@@ -41,13 +41,20 @@ const TopBar = () => {
 	};
 
 	useEffect(() => {
-		if (!user || !user.isVerified) {
+		if (!user) {
 			return triggerLogin();
 		}
 	}, [user]);
 
-	if (isOpen) {
-		return <Auth isOpen={isOpen} onClose={onClose} toggleAuth={toggleAuth} />;
+	if (isOpen && !user) {
+		return (
+			<Auth
+				isOpen={isOpen}
+				onClose={onClose}
+				onOpen={onOpen}
+				toggleAuth={toggleAuth}
+			/>
+		);
 	}
 
 	return (
