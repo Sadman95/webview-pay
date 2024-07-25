@@ -3,6 +3,7 @@
 import { loadPlans } from "@/api/agent_2";
 import { Spinner } from "@/components/bootstrap/index";
 import Footer from "@/components/common/Footer";
+import TopBar from "@/components/common/TopBar";
 import Plans from "@/components/ui/Plans";
 import { useAppSelector } from "@/redux/hooks";
 import socket from "@/socket";
@@ -31,7 +32,10 @@ const metadata: Metadata = {
 const Page = () => {
 	const { data, isLoading, refetch } = useQuery<IPlan[], AxiosError>(
 		"plans",
-		loadPlans
+		loadPlans,
+		{
+			notifyOnChangeProps: ["data", "error"],
+		}
 	);
 
 	const currentUser = useAppSelector((state) => state.auth.user);
@@ -52,7 +56,7 @@ const Page = () => {
 
 	return (
 		<>
-			{/* <TopBar /> */}
+			<TopBar />
 			{/* <Hero /> */}
 			{/* 
 			------------------------
