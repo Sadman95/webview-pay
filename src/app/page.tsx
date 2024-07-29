@@ -45,9 +45,6 @@ const Page = () => {
 			socket.emit("get:subscription", {
 				...currentUser,
 			});
-			socket.on("user:subscription", (data) => {
-				console.log("user sub:", data);
-			});
 		}
 		return () => {
 			socket.off("get:subscription");
