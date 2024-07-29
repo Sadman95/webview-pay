@@ -112,7 +112,7 @@ const CheckoutModal: FC<Props> = ({
 					<ModalCloseButton />
 				</div>
 				<ModalBody className="flex flex-col justify-between gap-4 overflow-hidden align-middle md:flex-row">
-					<Card variant={"filled"} className="w-full h-full">
+					{/* <Card variant={"filled"} className="w-full h-full">
 						<CardHeader>
 							<Heading size="md">{plan.name}</Heading>
 						</CardHeader>
@@ -120,9 +120,9 @@ const CheckoutModal: FC<Props> = ({
 							<Text>{plan.description}</Text>
 							<Text className="text-8xl">{plan.price}</Text>
 						</CardBody>
-					</Card>
+					</Card> */}
 					<FormControl
-						mb={4}
+						mb={2}
 						bg={"gray.100"}
 						className="h-full p-2 rounded-md shadow "
 					>
