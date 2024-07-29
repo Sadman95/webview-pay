@@ -29,6 +29,7 @@ import { useMutation, useQuery } from "react-query";
 import { connect } from "react-redux";
 import CheckoutModal from "./CheckoutModal";
 import CoreAlertDialog from "./CoreAlertDialog";
+import socket from "@/socket";
 
 const stripePromise = loadStripe("YOUR_STRIPE_PUBLIC_KEY");
 
@@ -86,6 +87,7 @@ const SinglePlan: React.FC<{ plan: IPlan; currentUser: IUser | null }> = ({
 		{
 			mutationFn: () => cancelSubscription(subPriceId?.subId as string),
 			onSuccess: (data) => {
+				dispatch(setSubscription(null));
 				setSubPriceId(null);
 				refetch();
 			},
@@ -103,7 +105,6 @@ const SinglePlan: React.FC<{ plan: IPlan; currentUser: IUser | null }> = ({
 
 	const handleCancelSubscription = () => {
 		mutate();
-		dispatch(setSubscription(null));
 	};
 
 	return (
