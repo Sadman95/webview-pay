@@ -1,11 +1,9 @@
 "use client";
 
-import { Button, useDisclosure } from "@/components/bootstrap/index";
-import { setLoginData } from "@/redux/features/auth/auth.slice";
-import { setToggleAuth } from "@/redux/features/auth/toggleAuth.slice";
+import { useDisclosure } from "@/components/bootstrap/index";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Auth from "../auth/Auth";
@@ -22,31 +20,33 @@ const TopBar = () => {
 
 	const triggerLogin = () => {
 		onOpen();
-		dispatch(setToggleAuth(true));
+		// dispatch(setToggleAuth(true));
 	};
 
-	const triggerSignup = () => {
-		onOpen();
-		dispatch(setToggleAuth(false));
-	};
-	const handleLogOut = () => {
-		if (session?.user) {
-			signOut();
-			localStorage.removeItem("nextauth.message");
-		}
-		dispatch(setLoginData(null));
-		localStorage.removeItem("el_token");
-		localStorage.removeItem("persist:el_app");
-		router.push("/");
-	};
+	// const triggerSignup = () => {
+	// 	onOpen();
+	// 	dispatch(setToggleAuth(false));
+	// };
+	// const handleLogOut = () => {
+	// 	if (session?.user) {
+	// 		signOut();
+	// 		localStorage.removeItem("nextauth.message");
+	// 	}
+	// 	dispatch(setLoginData(null));
+	// 	localStorage.removeItem("el_token");
+	// 	localStorage.removeItem("persist:el_app");
+	// 	router.push("/");
+	// };
 
 	useEffect(() => {
-		if (!user) {
-			return triggerLogin();
+		if (user) {
+			if (!user.isVerified) {
+				return triggerLogin();
+			}
 		}
 	}, [user]);
 
-	if (isOpen && !user) {
+	if (isOpen && (!user || !user.isVerified)) {
 		return (
 			<Auth
 				isOpen={isOpen}
