@@ -18,6 +18,7 @@ import {
 import { setSubscription } from "@/redux/features/auth/auth.slice";
 import { useAppDispatch } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
+import socket from "@/socket";
 import { IPlan } from "@/types/plans.types";
 import { IUser } from "@/types/user.types";
 import { List, ListIcon, ListItem } from "@chakra-ui/react";
@@ -87,6 +88,7 @@ const SinglePlan: React.FC<{ plan: IPlan; currentUser: IUser | null }> = ({
 			mutationFn: () => cancelSubscription(subPriceId?.subId as string),
 			onSuccess: (data) => {
 				setSubPriceId(null);
+				socket.emit("unsubscribe", { ...data });
 				refetch();
 			},
 			onError: (error) => {
