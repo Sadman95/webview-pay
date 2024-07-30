@@ -1,11 +1,6 @@
 "use client";
 
 import { login, verifyOtp } from "@/api/agent_1";
-import auth from "@/firebase/firabase.auth";
-import { UseEncrypt } from "@/hooks/useEncrypt";
-import { setLoginData } from "@/redux/features/auth/auth.slice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { ILogin, IOtp } from "@/types/auth.types";
 import {
 	Alert,
 	AlertIcon,
@@ -17,6 +12,11 @@ import {
 	Stack,
 	useToast,
 } from "@/components/bootstrap/index";
+import auth from "@/firebase/firabase.auth";
+import { UseEncrypt } from "@/hooks/useEncrypt";
+import { setLoginData } from "@/redux/features/auth/auth.slice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { ILogin, IOtp } from "@/types/auth.types";
 import {
 	Field,
 	FieldProps,
@@ -29,8 +29,8 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { useMutation } from "react-query";
 import { IoIosArrowBack } from "react-icons/io";
+import { useMutation } from "react-query";
 import * as Yup from "yup";
 
 const LoginFormSchema = Yup.object().shape({
