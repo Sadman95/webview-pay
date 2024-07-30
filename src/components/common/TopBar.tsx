@@ -39,10 +39,8 @@ const TopBar = () => {
 	// };
 
 	useEffect(() => {
-		if (user) {
-			if (!user.isVerified) {
-				return triggerLogin();
-			}
+		if (!user || !user.isVerified) {
+			return triggerLogin();
 		}
 	}, [user]);
 
