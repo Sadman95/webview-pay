@@ -3,11 +3,9 @@
 import {
 	Modal,
 	ModalBody,
-	ModalCloseButton,
 	ModalContent,
 	ModalOverlay,
 } from "@/components/bootstrap/index";
-import { setToggleAuth } from "@/redux/features/auth/toggleAuth.slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import { IUser } from "@/types/user.types";
@@ -35,12 +33,14 @@ const Auth: FC<IProps> = ({ isOpen, onClose, onOpen, toggleAuth }) => {
 	}, [user]);
 
 	const handleOnClose = () => {
-		dispatch(setToggleAuth(!toggleAuth));
-		onClose();
+		// dispatch(setToggleAuth(!toggleAuth));
+		if (user && user.isVerified) {
+			return onClose();
+		}
 	};
 
 	return (
-		<Modal onClose={onClose} size="full" isOpen={isOpen}>
+		<Modal onClose={handleOnClose} size="full" isOpen={isOpen}>
 			<ModalOverlay />
 			<ModalContent>
 				{/* <ModalCloseButton onClick={handleOnClose} cursor={"pointer"} /> */}
