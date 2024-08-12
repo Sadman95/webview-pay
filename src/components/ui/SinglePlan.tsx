@@ -82,7 +82,10 @@ const SinglePlan: React.FC<{ plan: IPlan; currentUser: IUser | null }> = ({
 			setSubPriceId(null);
 		});
 
-		return () => socket.off(`user:unsubscribe:${currentUser?.email}`);
+		return () => {
+			socket.off(`user:subscription:${currentUser?.email}`);
+			socket.off(`user:unsubscribe:${currentUser?.email}`);
+		};
 	}, [currentUser]);
 
 	const handleSubscribe = () => {
