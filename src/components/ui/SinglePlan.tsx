@@ -74,19 +74,23 @@ const SinglePlan: React.FC<{ plan: IPlan; currentUser: IUser | null }> = ({
 	}, [data, currentUser]);
 
 	useEffect(() => {
-		socket.on(`user:subscription:${currentUser?.email}`, (data) => {
+		if (!currentUser) return;
+
+		const email = currentUser.email;
+
+		socket.on(`user:subscription:${email}`, (data) => {
 			refetch();
 		});
 
-		socket.on(`user:unsubscribe:${currentUser?.email}`, (data) => {
+		socket.on(`user:unsubscribe:${email}`, (data) => {
 			setSubPriceId(null);
 		});
 
 		return () => {
-			socket.off(`user:subscription:${currentUser?.email}`);
-			socket.off(`user:unsubscribe:${currentUser?.email}`);
+			socket.off(`user:subscription:${email}`);
+			socket.off(`user:unsubscribe:${email}`);
 		};
-	}, [currentUser]);
+	}, [currentUser, subPriceId]);
 
 	const handleSubscribe = () => {
 		setOverlay(<OverlayOne />);
