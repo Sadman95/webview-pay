@@ -78,8 +78,6 @@ const SinglePlan: React.FC<{ plan: IPlan; currentUser: IUser | null }> = ({
 
 		const email = currentUser.email;
 
-		const handler = () => refetch();
-		const setter = () => setSubPriceId(null);
 
 		socket.on(`user:subscription:${email}`, (data) => {
 			refetch();
@@ -90,8 +88,8 @@ const SinglePlan: React.FC<{ plan: IPlan; currentUser: IUser | null }> = ({
 		});
 
 		return () => {
-			socket.off(`user:subscription:${email}`, handler);
-			socket.off(`user:unsubscribe:${email}`, setter);
+			socket.off(`user:subscription:${email}`);
+			socket.off(`user:unsubscribe:${email}`);
 		};
 	}, [currentUser, data]);
 
