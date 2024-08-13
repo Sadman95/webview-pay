@@ -82,11 +82,11 @@ const SinglePlan: React.FC<{ plan: IPlan; currentUser: IUser | null }> = ({
 		const setter = () => setSubPriceId(null);
 
 		socket.on(`user:subscription:${email}`, (data) => {
-			handler;
+			refetch();
 		});
 
 		socket.on(`user:unsubscribe:${email}`, (data) => {
-			setter;
+			setSubPriceId(null);
 		});
 
 		return () => {
