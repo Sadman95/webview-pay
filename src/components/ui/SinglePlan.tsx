@@ -1,5 +1,6 @@
 "use client"
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cancelSubscription, getSubscription } from "../../api/agent_1";
 import {
 	Button,
